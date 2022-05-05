@@ -1,10 +1,37 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Container from '../components/Container';
+import { getCountryURL } from '../api.config';
+
 
 export default function CountryPage() {
-  const { name } = useParams()
+  const { name } = useParams();
+  const [country, setCountry] = useState([]);
+  
+  useEffect(() => {
+    axios.get(getCountryURL(name))
+      .then(resp => setCountry(resp.data[0]));
+  }, []);
+
+  console.log(country);
 
   return (
-    <div>Country {name}</div>
+    <Container>
+      {country.name}
+      {/* <Wrapper>
+        <ImgWrapper>
+          <Img/>
+        </ImgWrapper>
+        <Info>
+          <Title></Title>
+          <Data>
+            <Main></Main>
+            <Additional></Additional>
+          </Data>
+          <Borders></Borders>
+        </Info>
+      </Wrapper> */}
+    </Container>
   )
 }

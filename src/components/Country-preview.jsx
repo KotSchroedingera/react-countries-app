@@ -1,11 +1,15 @@
 import React from 'react'; 
+import { Link } from 'react-router-dom';
 import styledComponents from 'styled-components';
 
 
-const Wrapper = styledComponents.article`
+const Wrapper = styledComponents(Link)`
   box-shadow: var(--box-shadow);
   border-radius: var(--radius);
   overflow: hidden;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 `;
 
 const ImgWrapper = styledComponents.div`
@@ -14,6 +18,14 @@ const ImgWrapper = styledComponents.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media(max-width: 767px) {
+    height: 200px;
+  }
+
+  @media(max-width: 550px) {
+    height: 300px;
+  }
 `;
 
 const Img = styledComponents.img`
@@ -23,6 +35,17 @@ const Img = styledComponents.img`
 
 const Info = styledComponents.div`
   padding: 1rem;
+  p {
+    margin-bottom: 0.3rem;
+  }
+  b {
+    font-weight: var(--fw-medium); 
+  }
+`;
+
+const Title = styledComponents.h2`
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
 `;
 
 
@@ -30,15 +53,15 @@ export default function Countryreview(props) {
   const { name, population, region, capital, flag } = props.data;
 
   return (
-    <Wrapper>
+    <Wrapper to={`/country/${name}`}>
       <ImgWrapper>
         <Img src={flag} alt={name}/>
       </ImgWrapper>
       <Info>
-        <h2>{name}</h2>
-        <p>Population: {population}</p>
-        <p>Region: {region}</p>
-        <p>Capital: {capital}</p>
+        <Title>{name}</Title>
+        <p><b>Population:</b> {population.toLocaleString()}</p>
+        <p><b>Region:</b> {region}</p>
+        <p><b>Capital:</b> {capital}</p>
       </Info>
     </Wrapper>
   )

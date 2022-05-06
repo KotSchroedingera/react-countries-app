@@ -7,7 +7,7 @@ import { getCountryURL } from '../api.config';
 
 export default function CountryPage() {
   const { name } = useParams();
-  const [country, setCountry] = useState([]);
+  const [country, setCountry] = useState(null);
   
   useEffect(() => {
     axios.get(getCountryURL(name))
@@ -18,19 +18,7 @@ export default function CountryPage() {
 
   return (
     <Container>
-      {/* <Wrapper>
-        <ImgWrapper>
-          <Img/>
-        </ImgWrapper>
-        <Info>
-          <Title></Title>
-          <Data>
-            <Main></Main>
-            <Additional></Additional>
-          </Data>
-          <Borders></Borders>
-        </Info>
-      </Wrapper> */}
+      {country.name.common}
     </Container>
   )
 }

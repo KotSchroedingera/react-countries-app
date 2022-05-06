@@ -14,11 +14,10 @@ export default function CountryPage() {
       .then(resp => setCountry(resp.data[0]));
   }, []);
 
-  console.log(country);
+  if (!country) return;
 
   return (
     <Container>
-      {country.name}
       {/* <Wrapper>
         <ImgWrapper>
           <Img/>

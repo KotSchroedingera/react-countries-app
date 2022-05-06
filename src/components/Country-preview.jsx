@@ -50,18 +50,19 @@ const Title = styledComponents.h2`
 
 
 export default function Countryreview(props) {
-  const { name, population, region, capital, flag } = props.data;
+  const { name, population, region, capital, flags } = props.data;
+  const commonName = name.common;
 
   return (
-    <Wrapper to={`/country/${name}`}>
+    <Wrapper to={`/country/${commonName}`}>
       <ImgWrapper>
-        <Img src={flag} alt={name}/>
+        <Img src={flags.svg} alt={commonName}/>
       </ImgWrapper>
       <Info>
-        <Title>{name}</Title>
+        <Title>{commonName}</Title>
         <p><b>Population:</b> {population.toLocaleString()}</p>
         <p><b>Region:</b> {region}</p>
-        <p><b>Capital:</b> {capital}</p>
+        {capital.length > 0 && <p><b>Capital:</b> {capital}</p>}
       </Info>
     </Wrapper>
   )

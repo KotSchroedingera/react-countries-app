@@ -44,7 +44,7 @@ export default function List() {
       <Countries>
       { !countries.length
         ? 'No countries'
-        : countries.map(elem => <Countryreview key={elem.name} data={elem} />) }
+        : countries.map(elem => <Countryreview key={elem.name.common} data={elem} />) }
       </Countries>
     </Wrapper>
   )

@@ -8,6 +8,8 @@ import ThemeToggler from './ThemeToggler';
 const HeaderEl = styledComponents.header`
   height: 5rem;
   box-shadow: var(--box-shadow);
+  display: flex;
+  position: relative;
 `;
 
 const Wrapper = styledComponents.div`

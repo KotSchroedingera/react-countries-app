@@ -5,9 +5,9 @@ import styledComponents from 'styled-components';
 const ContainerEl = styledComponents.div`
   margin: 0 auto; 
   max-width: 1200px;
-  height: 100%;
   display: grid;
   padding: 0 3rem;
+  width: 100%;
 
   @media(max-width: 767px) {
     padding: 0 1rem;

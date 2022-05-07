@@ -12,7 +12,7 @@ export default function CountryPage() {
   useEffect(() => {
     axios.get(getCountryURL(name))
       .then(resp => setCountry(resp.data[0]));
-  }, []);
+  }, [name]);
 
   if (!country) return;
 

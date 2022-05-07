@@ -3,9 +3,8 @@ import List from '../components/List';
 import Container from '../components/Container';
 import styledComponents from 'styled-components';
 
-const Wrapper = styledComponents.div`
-  margin-top: 1rem;
-`;
+
+const Wrapper = styledComponents.main``;
 
 
 export default function MainPage() {

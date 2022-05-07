@@ -6,7 +6,7 @@ import Countryreview from './Country-preview';
 import Controls from '../components/Controls';
 
 
-const Wrapper = styledComponents.main`
+const Wrapper = styledComponents.div`
 
 `;
 
@@ -43,7 +43,7 @@ export default function List() {
       <Controls />
       <Countries>
       { !countries.length
-        ? 'No countries'
+        ? 'Loading countries...'
         : countries.map(elem => <Countryreview key={elem.name.common} data={elem} />) }
       </Countries>
     </Wrapper>

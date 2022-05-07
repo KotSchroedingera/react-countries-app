@@ -15,13 +15,15 @@
   --fs-normal: 14px;
   --fs-large: 16px;
 
-  --color-dark-mode-elements: hsl(209, 23%, 22%);
-  --color-dark-mode-background: hsl(207, 26%, 17%); 
+  --color-dark-mode-bg: hsl(209, 23%, 22%);
+  --color-dark-mode-main-bg: hsl(207, 26%, 17%); 
   --color-dark-mode-text: hsl(0, 0%, 100%); 
-  --color-light-mode-elements:  hsl(0, 0%, 100%);
-  --color-light-mode-background: hsl(0, 0%, 98%); 
+  --color-dark-mode-input: hsl(0, 0%, 52%); 
+
+  --color-light-mode-bg:  hsl(0, 0%, 100%);
+  --color-light-mode-main-bg: hsl(0, 0%, 98%); 
   --color-light-mode-text: hsl(200, 15%, 8%); 
-  --color-light-mode-input: hsl(0, 0%, 52%); 
+  --color-light-mode-input: hsl(0, 0%, 100%); 
 
   --radius: 0.5rem;
   --box-shadow: 0 0 10px hsl(0, 0%, 52%);
@@ -35,17 +37,32 @@ body {
 
 body[data-theme='dark'] {
   color: var(--color-dark-mode-text);
-  background-color: var(--color-dark-mode-background);
-  * {
-    background-color: var(--color-dark-mode-elements);
+  background-color: var(--color-dark-mode-main-bg);
+  header {
+    background-color: var(--color-dark-mode-bg);
+    a {
+      color: var(--color-dark-mode-text);
+    }
+  }
+  main {
+    background-color: var(--color-dark-mode-main-bg);
+  }
+  input {
+    background-color: var(--color-dark-mode-input);  
   }
 }
 
 body[data-theme='light'] {
   color: var(--color-light-mode-text);
-  background-color: var(--color-light-mode-background);
-  * {
-   background-color: var(--color-light-mode-elements); 
+  background-color: var(--color-light-mode-main-bg);
+  header {
+    background-color: var(--color-light-mode-bg);
+    a {
+      color: var(--color-light-mode-text);
+    }
+  }
+  main {
+   background-color: var(--color-light-mode-main-bg); 
   }
   input {
     background-color: var(--color-light-mode-input);  

@@ -1,11 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import styledComponents from 'styled-components';
-import { allCountriesURL } from '../api.config'
 import CountryPreview from './Country-preview';
 import Controls from '../components/Controls';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCountriesToList, getCountriesAsync } from '../store/countriesSlice';
+import { getCountriesAsync } from '../store/countriesSlice';
 
 const Wrapper = styledComponents.div``;
 
@@ -29,20 +27,16 @@ const Countries = styledComponents.div`
 
 
 export default function List() {
-  // const [countries, setCountries] = useState([]);
-  const countries = useSelector(state => state.countries.list)
+  const countries = useSelector(state => state.countries.entities.list) || [];
+  const countriesLoadingState = useSelector(state => state.countries.loading); 
   const [searchQuery, setSearchQuery] = useState('');
   const [region, setRegion] = useState('');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(allCountriesURL)
-      .then(resp => {
-        dispatch(getCountriesAsync({ list: resp.data }))
-      })
-      .catch(err => console.log(err));
-  }, []);
+    dispatch(getCountriesAsync());
+  }, [dispatch]);
 
   const getSearchString = (evt) => {
     setSearchQuery(evt.target.value);
@@ -58,9 +52,10 @@ export default function List() {
         getSearchString={getSearchString}
         getRegion={getRegion} />
       <Countries>
-      { !countries.length
-        ? 'Loading countries...'
-        : countries
+      { countriesLoadingState === 'loading' && 'Loading countries...' }
+      { countriesLoadingState === 'failed' && 'Loading failed.' }
+      { countriesLoadingState === 'success' &&
+        countries
           .filter(elem => elem.name.common.toLowerCase().includes(searchQuery.toLowerCase()))
           .filter(elem => {
             if (region === 'all') return true;        

@@ -2,13 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import styledComponents from 'styled-components';
 import { allCountriesURL } from '../api.config'
-import Countryreview from './Country-preview';
+import CountryPreview from './Country-preview';
 import Controls from '../components/Controls';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCountriesToList, getCountriesAsync } from '../store/countriesSlice';
 
-
-const Wrapper = styledComponents.div`
-
-`;
+const Wrapper = styledComponents.div``;
 
 const Countries = styledComponents.div`
   display: grid;
@@ -30,21 +29,44 @@ const Countries = styledComponents.div`
 
 
 export default function List() {
-  const [countries, setCountries] = useState([]);
+  // const [countries, setCountries] = useState([]);
+  const countries = useSelector(state => state.countries.list)
+  const [searchQuery, setSearchQuery] = useState('');
+  const [region, setRegion] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios.get(allCountriesURL)
-      .then(resp => setCountries(resp.data))
+      .then(resp => {
+        dispatch(getCountriesAsync({ list: resp.data }))
+      })
       .catch(err => console.log(err));
   }, []);
+
+  const getSearchString = (evt) => {
+    setSearchQuery(evt.target.value);
+  };
+
+  const getRegion = (value) => {
+    setRegion(value);
+  };
  
   return (
     <Wrapper>
-      <Controls />
+      <Controls
+        getSearchString={getSearchString}
+        getRegion={getRegion} />
       <Countries>
       { !countries.length
         ? 'Loading countries...'
-        : countries.map(elem => <Countryreview key={elem.name.common} data={elem} />) }
+        : countries
+          .filter(elem => elem.name.common.toLowerCase().includes(searchQuery.toLowerCase()))
+          .filter(elem => {
+            if (region === 'all') return true;        
+            return elem.region.toLowerCase() === region;
+          })
+          .map(elem => <CountryPreview key={elem.name.common} data={elem} />) }
       </Countries>
     </Wrapper>
   )

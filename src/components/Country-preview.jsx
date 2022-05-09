@@ -49,7 +49,7 @@ const Title = styledComponents.h2`
 `;
 
 
-export default function Countryreview(props) {
+export default function CountryPreview(props) {
   const { name, population, region, capital, flags } = props.data;
   const commonName = name.common;
 

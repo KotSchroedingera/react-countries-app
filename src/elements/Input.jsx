@@ -16,9 +16,11 @@ const InputEl = styledComponents.input`
 `;
 
 
-export default function Input(props) {
+export default function Input({ getInputValue, ...props }) {
 
   return (
-    <InputEl {...props} />
+    <InputEl
+      onChange={evt => getInputValue(evt)}
+      {...props} />
   )
 }

@@ -3,6 +3,7 @@ import styledComponents from 'styled-components';
 import Input from '../elements/Input';
 import Select from 'react-select';
 import { IoSearchOutline } from "react-icons/io5";
+import { useEffect } from 'react';
 
 
 const Wrapper = styledComponents.div`
@@ -32,12 +33,13 @@ const options = [
   { value: 'asia', label: 'Asia' },
   { value: 'europe', label: 'Europe' }, 
   { value: 'oceania', label: 'Oceania' },  
-]
+];
 
 const SelectEl = styledComponents(Select).attrs({
   styles: {
     control: (provided, state) => ({
       ...provided, 
+      cursor: 'pointer',
       width: '200px', 
       border: 0, 
       boxShadow: 'var(--box-shadow)', 
@@ -58,24 +60,33 @@ const SelectEl = styledComponents(Select).attrs({
       ...provided, 
       padding: 0,
     }), 
-    option: (provided, state) => ({
-      ...provided,
+    option: (provided) => ({
+      ...provided, 
+      cursor: 'pointer',
     })
-  }
+  },
 })``;
 
-export default function Controls() {
+
+export default function Controls(props) {
+  const { getSearchString, getRegion } = props;
+
+  useEffect(() => {
+    getRegion('all');
+  }, [])
+
   return (
     <Wrapper>
       <Search>
         <IoSearchOutline />
         <Input
+          getInputValue={getSearchString}
           style={{ paddingLeft: '2.6rem' }}
           placeholder='Search for a country...'
           type='search' />
       </Search>
       <SelectEl
-        menuIsOpen
+        onChange={(evt) => getRegion(evt.value)}
         isSearchable={false}
         defaultValue={options[0]}
         options={options} />

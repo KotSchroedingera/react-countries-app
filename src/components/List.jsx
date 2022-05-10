@@ -28,7 +28,7 @@ const Countries = styledComponents.div`
 
 export default function List() {
   const countries = useSelector(state => state.countries.entities.list) || [];
-  const countriesLoadingState = useSelector(state => state.countries.loading); 
+  const loading = useSelector(state => state.countries.loadingCountries); 
   const [searchQuery, setSearchQuery] = useState('');
   const [region, setRegion] = useState('');
 
@@ -52,9 +52,9 @@ export default function List() {
         getSearchString={getSearchString}
         getRegion={getRegion} />
       <Countries>
-      { countriesLoadingState === 'loading' && 'Loading countries...' }
-      { countriesLoadingState === 'failed' && 'Loading failed.' }
-      { countriesLoadingState === 'success' &&
+      { loading === 'loading' && 'Loading countries...' }
+      { loading === 'failed' && 'Loading failed.' }
+      { loading === 'success' &&
         countries
           .filter(elem => elem.name.common.toLowerCase().includes(searchQuery.toLowerCase()))
           .filter(elem => {

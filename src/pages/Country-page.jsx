@@ -17,7 +17,8 @@ const Wrapper = styledComponents.div`
     'f t t'
     'f i1 i2'
     'f b b';
-  grid-template-columns: 50% 20% 20%;
+  grid-template-columns: 50% 21% 21%;
+  grid-template-rows: min-content max-content min-content max-content;
   justify-content: space-between; 
 `;
 const Controls = styledComponents.div`
@@ -32,6 +33,7 @@ const Img = styledComponents.img`
 `;
 const Title = styledComponents.h1`
   grid-area: t;
+  display: flex;
 `;
 const InfoMain = styledComponents.div`
   grid-area: i1;
@@ -56,6 +58,9 @@ const BorderCountries = styledComponents.div`
     padding: 0.5rem 1rem;
     margin-right: 0.5rem;
   }
+  li:last-child button {
+    margin-right: 0;
+  }
   a {
     color: inherit;
     text-decoration: none;
@@ -63,6 +68,9 @@ const BorderCountries = styledComponents.div`
 `;
 const Ul = styledComponents.ul`
   list-style-type: none;
+  li:last-child {
+    margin-bottom: 0
+  };
 `; 
 const Li = styledComponents.li`
   font-size: var(--fs-large);

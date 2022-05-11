@@ -103,7 +103,8 @@ export default function CountryPage() {
 
   useEffect(() => {
     dispatch(getCountryInfoAsync(name));
-  }, [name, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   useEffect(() => {
     if (!country) return;

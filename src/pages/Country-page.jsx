@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Container from '../components/Container';
 import styledComponents from 'styled-components';
 import Button from '../elements/Button';
@@ -13,53 +13,64 @@ import { useNavigate } from 'react-router-dom';
 const Wrapper = styledComponents.div`
   display: grid;
   grid-template-areas: 
-    'c c c'
-    'f t t'
-    'f i1 i2'
-    'f b b';
-  grid-template-columns: 50% 21% 21%;
-  grid-template-rows: min-content max-content min-content max-content;
-  justify-content: space-between; 
+    'c c'
+    'f i';
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin: 3rem 0;
+  @media (max-width: 1024px) {
+    gap: 1rem;
+  }
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const Controls = styledComponents.div`
   grid-area: c;
 `;
-const Flag = styledComponents.div`
+const FlagWrapper = styledComponents.div`
   grid-area: f;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const InfoWrapper = styledComponents.div`
+  grid-area: i;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+const StatsWrapper = styledComponents.div`
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const Img = styledComponents.img`
   display: block;
   width: 100%;
 `;
 const Title = styledComponents.h1`
-  grid-area: t;
-  display: flex;
-`;
-const InfoMain = styledComponents.div`
-  grid-area: i1;
-`;
-const InfoAdditional = styledComponents.div`
-  grid-area: i2;
+  grid-column: 1 / 3;
 `;
 const BorderCountries = styledComponents.div`
-  grid-area: b;
   font-size: var(--fs-large);
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem 0.5rem;
   align-items: baseline;
-  b {
-    margin-right: 1rem;
-  }
   ul {
-    display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    gap: 0.3rem;
   }
   button {
-    padding: 0.5rem 1rem;
-    margin-right: 0.5rem;
-  }
-  li:last-child button {
-    margin-right: 0;
+    padding: 0.5rem;
   }
   a {
     color: inherit;
@@ -68,13 +79,12 @@ const BorderCountries = styledComponents.div`
 `;
 const Ul = styledComponents.ul`
   list-style-type: none;
-  li:last-child {
-    margin-bottom: 0
-  };
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `; 
 const Li = styledComponents.li`
   font-size: var(--fs-large);
-  margin-bottom: 0.7rem;
 `;
 const B = styledComponents.b`
   font-weight: var(--fw-medium);
@@ -133,7 +143,6 @@ export default function CountryPage() {
       <Wrapper>
         <Controls>
           <Button
-            style={{margin: '3rem 0'}}
             onClick={() => navigate(-1)}>
               <IoArrowBack />
               Back
@@ -143,66 +152,62 @@ export default function CountryPage() {
         { loadingCountry === 'failed' && 'Loading failed.' }
         { country && 
         <>
-          <Flag>
+          <FlagWrapper>
             <Img 
               src={country.flags.svg}
               alt={country.name.common} />
-          </Flag>
-          <Title>
-            {country.name.common}
-          </Title>
-          <InfoMain>
-            <Ul>
-              <Li>
-                <B>Native name: </B>{getNativeNames(country.name.nativeName)}
-              </Li>
-              <Li>
-                <B>Population: </B>{country.population.toLocaleString()}
-              </Li>
-              <Li>
-                <B>Region: </B>{country.region}
-              </Li>
-              <Li>
-                <B>Sub region: </B>{country.subregion}
-              </Li>
-              <Li>
-                <B>Capital: </B>{country.capital[0]}
-              </Li>
-            </Ul>
-          </InfoMain>
-          <InfoAdditional>
-            <Ul>
-              <Li>
-                <B>Top level domain: </B>{country.tld[0]}
-              </Li>
-              <Li>
-                <B>Currencies: </B>{getCurrencies(country.currencies)}
-              </Li>
-              <Li>
-                <B>Languages: </B>{getLanguages(country.languages)}
-              </Li>
-            </Ul>
-          </InfoAdditional>
-          <BorderCountries>
-            { loadingBorders === 'loading' && 'Loading borders...' }
-            { loadingBorders === 'failed' && 'Failed loaing borders.' }
-            { loadingBorders === 'success' &&
-              <>
-                <B>Border countries: </B>
-                <Ul>
+          </FlagWrapper>
+          <InfoWrapper>
+            <StatsWrapper>
+              <Title>
+                {country.name.common}
+              </Title>
+              <Ul>
+                <Li>
+                  <B>Native name: </B>{getNativeNames(country.name.nativeName)}
+                </Li>
+                <Li>
+                  <B>Population: </B>{country.population.toLocaleString()}
+                </Li>
+                <Li>
+                  <B>Region: </B>{country.region}
+                </Li>
+                <Li>
+                  <B>Sub region: </B>{country.subregion}
+                </Li>
+                <Li>
+                  <B>Capital: </B>{country.capital[0]}
+                </Li>
+              </Ul>
+              <Ul>
+                <Li>
+                  <B>Top level domain: </B>{country.tld[0]}
+                </Li>
+                <Li>
+                  <B>Currencies: </B>{getCurrencies(country.currencies)}
+                </Li>
+                <Li>
+                  <B>Languages: </B>{getLanguages(country.languages)}
+                </Li>
+              </Ul>
+            </StatsWrapper>
+            <BorderCountries>
+              { loadingBorders === 'loading' && 'Loading borders...' }
+              { loadingBorders === 'failed' && 'Failed loaing borders.' }
+              { loadingBorders === 'success' &&
+                <>
+                  <B>Border countries: </B>
                   {country.borderCountriesNames.length
                     ? country.borderCountriesNames
                       .map(elem => 
-                        <Li key={elem}>
-                          <Button>
-                            <Link to={`/country/${elem}`}>{elem}</Link>
-                          </Button>
-                        </Li>) 
+                        <Button key={elem}>
+                          <Link to={`/country/${elem}`}>{elem}</Link>
+                        </Button>)
                     : 'no border countries'}
-                </Ul> 
-              </>
-            }
-          </BorderCountries>
+                </>
+              }
+            </BorderCountries>
+          </InfoWrapper>
         </>
         }     
       </Wrapper>

@@ -36,7 +36,6 @@ export const getCountryInfoAsync = createAsyncThunk(
 export const getBorderCountriesNamesAsync = createAsyncThunk(
   'countries/getBorderCountriesNames', 
   async ({ borders, name }) => {
-    console.log(borders, name);
     const result = await Promise.all(borders.map(async elem => {
       const response = await axios.get(searchCountryByCodeURL(elem)); 
       return response.data.name.common;

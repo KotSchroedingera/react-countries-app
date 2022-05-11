@@ -29,42 +29,30 @@
   --box-shadow: 0 0 10px hsl(0, 0%, 52%);
 } 
 
+body[data-theme='dark'] {
+  --color-text: var(--color-dark-mode-text);
+  --color-bg: var(--color-dark-mode-bg); 
+  --color-bg-main: var(--color-dark-mode-main-bg); 
+  --color-bg-input: var(--color-dark-mode-input);
+}
+
+body[data-theme='light'] {
+  --color-text: var(--color-light-mode-text);
+  --color-bg: var(--color-light-mode-bg); 
+  --color-bg-main: var(--color-light-mode-main-bg); 
+  --color-bg-input: var(--color-light-mode-input);
+}
+
 body {
   font-family: var(--ffamily);
   font-weight: var(--fw-light);
   font-size: var(--fs-normal);
-}
 
-body[data-theme='dark'] {
-  color: var(--color-dark-mode-text);
-  background-color: var(--color-dark-mode-main-bg);
-  header {
-    background-color: var(--color-dark-mode-bg);
-    a {
-      color: var(--color-dark-mode-text);
-    }
-  }
-  main {
-    background-color: var(--color-dark-mode-main-bg);
-  }
-  input {
-    background-color: var(--color-dark-mode-input);  
-  }
-}
+  color: var(--color-text);
+  background-color: var(--color-bg);
 
-body[data-theme='light'] {
-  color: var(--color-light-mode-text);
-  background-color: var(--color-light-mode-main-bg);
-  header {
-    background-color: var(--color-light-mode-bg);
-    a {
-      color: var(--color-light-mode-text);
-    }
-  }
-  main {
-   background-color: var(--color-light-mode-main-bg); 
-  }
   input {
-    background-color: var(--color-light-mode-input);  
+    background-color: var(--color-bg-input);
+    color: var(--color-text);
   }
 }

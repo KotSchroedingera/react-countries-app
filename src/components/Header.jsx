@@ -19,7 +19,7 @@ const Wrapper = styledComponents.div`
 `;
 
 const Title = styledComponents(Link)`
-  color: inherit;
+  color: var(--color-text);
   text-decoration: none;
 `;
 

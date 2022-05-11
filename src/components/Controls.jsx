@@ -11,6 +11,11 @@ const Wrapper = styledComponents.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 2rem 0;
+
+  @media(max-width: 580px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
 const Search = styledComponents.div`
@@ -22,6 +27,9 @@ const Search = styledComponents.div`
     left: 1rem;
     width: 1rem;
     height: 1rem;
+  }
+  @media(max-width: 580px) {
+    width: 100%;
   }
 `;
 
@@ -39,6 +47,7 @@ const SelectEl = styledComponents(Select).attrs({
   styles: {
     control: (provided, state) => ({
       ...provided, 
+      backgroundColor: 'var(--color-bg-input)',
       cursor: 'pointer',
       width: '200px', 
       border: 0, 
@@ -46,7 +55,14 @@ const SelectEl = styledComponents(Select).attrs({
       borderRadius: state.menuIsOpen
         ? 'var(--radius) var(--radius) 0 0'
         : 'var(--radius)', 
+      '@media (max-width: 580px)': {
+        width: '100%',
+      }
     }), 
+    singleValue: (provided) => ({
+      ...provided,
+      color: 'var(--color-text)',
+    }),
     menu: (provided) => {
       return {
         ...provided, 
@@ -59,11 +75,13 @@ const SelectEl = styledComponents(Select).attrs({
     menuList: (provided) => ({
       ...provided, 
       padding: 0,
+      color: 'var(--color-text)',
+      backgroundColor: 'var(--color-bg-input)',
     }), 
     option: (provided) => ({
       ...provided, 
-      cursor: 'pointer',
-    })
+      cursor: 'pointer', 
+    }), 
   },
 })``;
 
@@ -86,10 +104,18 @@ export default function Controls(props) {
           type='search' />
       </Search>
       <SelectEl
+          defaultValue={options[0]}
+          options={options} 
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: 'lightgrey',
+              primary: 'black',
+            },
+          })}      
         onChange={(evt) => getRegion(evt.value)}
-        isSearchable={false}
-        defaultValue={options[0]}
-        options={options} />
+        isSearchable={false} />
     </Wrapper>
   )
 }

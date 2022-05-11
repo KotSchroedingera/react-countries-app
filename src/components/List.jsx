@@ -10,7 +10,8 @@ const Wrapper = styledComponents.div``;
 const Countries = styledComponents.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 2rem;
+  gap: 2rem;
+  margin-bottom: 2rem;
 
   @media(max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);

@@ -15,9 +15,9 @@ const ContainerEl = styledComponents.div`
 `;
 
 
-export default function Container({ children }) {
+export default function Container({ children, ...props }) {
   return (
-    <ContainerEl>
+    <ContainerEl {...props}>
       {children}
     </ContainerEl>
   )

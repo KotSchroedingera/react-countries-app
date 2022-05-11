@@ -1,10 +1,9 @@
 import React from 'react'; 
 import styledComponents from 'styled-components';
 import Input from '../elements/Input';
-import Select from 'react-select';
 import { IoSearchOutline } from "react-icons/io5";
 import { useEffect } from 'react';
-
+import MySelect from '../elements/Select';
 
 const Wrapper = styledComponents.div`
   display: flex;
@@ -33,8 +32,7 @@ const Search = styledComponents.div`
   }
 `;
 
-
-const options = [
+const regions = [
   { value: 'all', label: 'All' },
   { value: 'africa', label: 'Africa' },
   { value: 'americas', label: 'Americas' },
@@ -43,54 +41,12 @@ const options = [
   { value: 'oceania', label: 'Oceania' },  
 ];
 
-const SelectEl = styledComponents(Select).attrs({
-  styles: {
-    control: (provided, state) => ({
-      ...provided, 
-      backgroundColor: 'var(--color-bg-input)',
-      cursor: 'pointer',
-      width: '200px', 
-      border: 0, 
-      boxShadow: 'var(--box-shadow)', 
-      borderRadius: state.menuIsOpen
-        ? 'var(--radius) var(--radius) 0 0'
-        : 'var(--radius)', 
-      '@media (max-width: 580px)': {
-        width: '100%',
-      }
-    }), 
-    singleValue: (provided) => ({
-      ...provided,
-      color: 'var(--color-text)',
-    }),
-    menu: (provided) => {
-      return {
-        ...provided, 
-        margin: 0,
-        boxShadow: 'var(--box-shadow)', 
-        overflow: 'hidden',
-        borderRadius: '0 0 var(--radius) var(--radius)',
-      }
-    },
-    menuList: (provided) => ({
-      ...provided, 
-      padding: 0,
-      color: 'var(--color-text)',
-      backgroundColor: 'var(--color-bg-input)',
-    }), 
-    option: (provided) => ({
-      ...provided, 
-      cursor: 'pointer', 
-    }), 
-  },
-})``;
-
-
 export default function Controls(props) {
   const { getSearchString, getRegion } = props;
 
   useEffect(() => {
     getRegion('all');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -103,19 +59,10 @@ export default function Controls(props) {
           placeholder='Search for a country...'
           type='search' />
       </Search>
-      <SelectEl
-          defaultValue={options[0]}
-          options={options} 
-          theme={(theme) => ({
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary25: 'lightgrey',
-              primary: 'black',
-            },
-          })}      
-        onChange={(evt) => getRegion(evt.value)}
-        isSearchable={false} />
+      <MySelect  
+        getRegion={getRegion}
+        options={regions}
+        />
     </Wrapper>
   )
 }

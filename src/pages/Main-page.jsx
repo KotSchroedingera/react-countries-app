@@ -1,5 +1,5 @@
 import React from 'react';
-import List from '../components/List';
+import CountriesList from '../components/CountriesList';
 import Container from '../components/Container';
 import styledComponents from 'styled-components';
 
@@ -11,7 +11,7 @@ export default function MainPage() {
   return (
     <Wrapper>
       <Container>
-        <List />
+        <CountriesList />
       </Container>
     </Wrapper>
   )

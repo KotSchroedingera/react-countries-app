@@ -103,7 +103,7 @@ export default function CountryPage() {
 
   useEffect(() => {
     dispatch(getCountryInfoAsync(name));
-  }, [name]);
+  }, [name, dispatch]);
 
   useEffect(() => {
     if (!country) return;
@@ -111,28 +111,16 @@ export default function CountryPage() {
       borders: country.borders, 
       name: country.name.common
     }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingCountry]);
 
-  const getNativeNames = (obj) => {
-    const result = [];
-    for (const key in obj) {
-      result.push(obj[key].common);
-    }
-    return result.join(', ');
-  };
 
-  const getCurrencies = (obj) => {
-    const result = [];
-    for (const key in obj) {
-      result.push(obj[key].name);
-    }
-    return result.join(', ');
-  }; 
-
-  const getLanguages = (obj) => {
+  const getElemsFromObj = (obj, param = null) => {
     const result = []; 
     for (const key in obj) {
-      result.push(obj[key]);
+      param
+        ? result.push(obj[key][param])
+        : result.push(obj[key]);
     }
     return result.join(', ');
   }; 
@@ -164,7 +152,7 @@ export default function CountryPage() {
               </Title>
               <Ul>
                 <Li>
-                  <B>Native name: </B>{getNativeNames(country.name.nativeName)}
+                  <B>Native name: </B>{getElemsFromObj(country.name.nativeName, 'common')}
                 </Li>
                 <Li>
                   <B>Population: </B>{country.population.toLocaleString()}
@@ -184,10 +172,10 @@ export default function CountryPage() {
                   <B>Top level domain: </B>{country.tld[0]}
                 </Li>
                 <Li>
-                  <B>Currencies: </B>{getCurrencies(country.currencies)}
+                  <B>Currencies: </B>{getElemsFromObj(country.currencies, 'name')}
                 </Li>
                 <Li>
-                  <B>Languages: </B>{getLanguages(country.languages)}
+                  <B>Languages: </B>{getElemsFromObj(country.languages)}
                 </Li>
               </Ul>
             </StatsWrapper>

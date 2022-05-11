@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styledComponents from 'styled-components';
-import CountryPreview from './Country-preview';
-import Controls from '../components/Controls';
+import CountryPreview from './CountryPreview';
+import Controls from './Controls';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountriesAsync } from '../store/countriesSlice';
 
@@ -27,7 +27,7 @@ const Countries = styledComponents.div`
 `;
 
 
-export default function List() {
+export default function CountriesList() {
   const countries = useSelector(state => state.countries.entities.list) || [];
   const loading = useSelector(state => state.countries.loadingCountries); 
   const [searchQuery, setSearchQuery] = useState('');

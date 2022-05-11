@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { IoMoonOutline } from "react-icons/io5";
+import { IoSunnySharp } from "react-icons/io5";
 import { IoMoonSharp } from "react-icons/io5";
 import styledComponents from 'styled-components';
 import { useState } from 'react';
@@ -31,7 +31,7 @@ export default function ThemeToggler() {
     <Wrapper 
       onClick={toggleTheme}>
       { theme === 'light'
-        ? <IoMoonOutline />
+        ? <IoSunnySharp />
         : <IoMoonSharp /> }
       <span>
         { theme[0].toUpperCase() + theme.slice(1) } theme

@@ -2,9 +2,6 @@
 
 https://react-countries-app-ten.vercel.app/  
 Приложение запрашивает данные о странах, отображает флаги и краткую информацию на главной странице и подробную информацию на странице страны.  
-  
-ТЗ:  
-https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca
 
 ## Главная страница
 - Фильтрация по названию страны
@@ -14,8 +11,15 @@ https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-swi
 - Подробная информация о стране
 - Возможность перейти на страны, которые граничат со страной
 
+## Дополнительно
+- Адаптив под мобильные
+- Светлая/тёмная темы
+- Оптимизация запросов (хранение результатов в памяти)
+
 ## Стек
 - React
 - React Styled Components
 - React Router Dom
+- Redux
+- Redux Toolkit
 - Axios
